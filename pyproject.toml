@@ -162,6 +162,11 @@ config-settings = "setup-args=-Davx2=disabled"
 select = "*-macosx_arm64"
 config-settings = {setup-args = ["-Davx2=disabled", "-Dsse2=disabled"]}
 
+# Make sure we get the native MSVC toolchain rather than emulated x86_64 mingw with --vsenv
+[[tool.cibuildwheel.overrides]]
+select = "*-win_arm64"
+config-settings = {setup-args = ["-Davx2=disabled", "-Dsse2=disabled", "--vsenv"]}
+
 [tool.ruff]
 line-length = 100
 extend-exclude = ["c-blosc"]
