@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         # macos-15-large is an intel runner, macos-14 is an arm64 runner
-        os: [ubuntu-latest, ubuntu-22.04-arm, windows-latest, macos-15-large, macos-14]
+        os: [ubuntu-latest, ubuntu-22.04-arm, windows-latest, windows-11-arm, macos-15-large, macos-14]
     env:
       CIBW_TEST_COMMAND: python -c "import numcodecs"
       CIBW_BUILD: "cp312-* cp313-* cp314-*"
