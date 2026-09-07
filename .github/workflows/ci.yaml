@@ -35,7 +35,11 @@ jobs:
 
       - name: Install numcodecs
         # Make sure we get the native MSVC toolchain rather than emulated x86_64 mingw with --vsenv
-        run: python -m pip install -v ${{ matrix.platform == 'windows-11-arm' && '-C setup-args=--vsenv' || '' }} ".[test,test_extras,msgpack,google_crc32c,crc32c,pcodec,zfpy]"
+        # zfpy does not have a win_arm64 wheel
+        env:
+          PIP_ARGS: ${{ matrix.platform == 'windows-11-arm' && '-C setup-args=--vsenv' || '' }}
+          ZFPY_EXTRA: ${{ matrix.platform != 'windows-11-arm' && ',zfpy' || '' }}
+        run: python -m pip install -v $PIP_ARGS ".[test,test_extras,msgpack,google_crc32c,crc32c,pcodec$ZFPY_EXTRA]"
 
       - name: List installed packages
         run: python -m pip list
